@@ -1,0 +1,130 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <title>쇼핑몰</title>
+    <link href="https://fonts.googleapis.com/css2?family=Jua&display=swap" rel="stylesheet">
+    <style>
+      
+        .wrap {
+            width: 900px;
+            margin: 10px auto;
+        }
+
+        * {
+        	font-family: 'Jua', sans-serif;
+          }
+    </style>
+
+    <script>
+        function order() {
+          let name = $('#order_name').val();
+          let count = $('#order_count').val();
+          let address = $('#order_address').val();
+          let phone = $('#order_phone').val();
+
+          if (name == ''){
+            alert('이름을 입력해주세요')
+            return
+          } else if (count == ''){
+            alert('수량을 입력해주세요')
+            return
+          } else if (address == ''){
+            alert('주소를 입력해주세요')
+            return
+          } else if(phone == ''){
+            alert('휴대폰 번호를 입력해주세요')
+            return
+          }
+        }
+        function set_exchange(){
+          $.ajax({
+            type: "GET",
+            url: "https://api.manana.kr/exchange/rate.json",
+            data: {},
+            success: function (response) {
+              for (let i=0; i<response.length; i++){
+                if (response[i]['name'] == 'USDKRW=X'){
+                  $('#exchange').text(response[i]['rate']);
+                  return;
+                }
+              }
+            }
+          })
+        }
+    </script>
+</head>
+
+<body>
+    <div class="wrap">
+      <div class="text-center">
+        <img src="https://image.idus.com/image/files/a74d03f59b3e4336ac0ee02ad46d8186.jpg" width=600px, height=600px, class="rounded" alt="piercing">
+      </div>
+        <br></br>  
+        <table>
+            <tr>
+              <th><h2>진주 화이트 꽃귀걸이</h2></th>
+              <th><h5>가격: 35,000원</h5></th>
+            </tr>
+          </table>
+        <p><h5>하얀 진주 아래 하얀 색의 무광 꽃으로 매칭되어 있는 꽃 귀걸이입니다. 청순하면서도 세련된 디자인으로 포인트 주기 좋습니다. 귀걸이 침은 써지컬침으로 제작되어 알러지에 민감하신 분들도 착용 가능합니다.</h5></p>
+        <br>
+        <div class="info-temp">
+          달러-원 환율: 
+          <span id="exchange">1223.91</span>
+        </div>
+        </br>
+        <div class="input-group mb-3">
+            <div class="input-group-prepend">
+              <span class="input-group-text" id="basic-addon1">주문자 성함</span>
+            </div>
+            <input type="text" class="form-control" id='order_name'aria-describedby="basic-addon1">
+          </div>
+        <div class="input-group mb-3">
+            <div class="input-group-prepend">
+              <label class="input-group-text" for="inputGroupSelect01">수량</label>
+            </div>
+            <select class="custom-select" id="order_count">
+              <option selected>-- 수량을 선택하세요 -- </option>
+              <option value="1">1</option>
+              <option value="2">2</option>
+              <option value="3">3</option>
+              <option value="4">4</option>
+            </select>
+          </div>
+        <div class="input-group mb-3">
+            <div class="input-group-prepend">
+              <span class="input-group-text" id="basic-addon1">주소</span>
+            </div>
+            <input type="text" class="form-control" id='order_address' aria-describedby="basic-addon1">
+          </div>
+        <div class="input-group mb-3">
+            <div class="input-group-prepend">
+              <span class="input-group-text" id="basic-addon1">전화번호</span>
+            </div>
+            <input type="text" class="form-control" id='order_phone' aria-describedby="basic-addon1">
+          </div>
+        <button onclick="order()" class="btn btn-primary" type="button">주문하기</button>    
+    </div>
+    
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+        crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>
